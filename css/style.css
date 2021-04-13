@@ -105,7 +105,8 @@ html{
     font-size: 2.4rem;
 }
 
-.modal{
+.modal,
+.modal--custom {
     position: fixed;
     top: 0;
     left: 0;
@@ -118,6 +119,7 @@ html{
 }
 
 .modal__content{
+    position: relative;
     width: 50vw;
     height: 50vh;
     background-color: #fff;
@@ -126,6 +128,49 @@ html{
     align-items: center;
     justify-content: space-around;
     font-size: 4.8rem;
+}
+
+.modal__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* align-items: center; */
+    font-size: 2rem;
+    height: 80%;
+    width: 50%;
+}
+
+.modal__label{
+    display: block;
+    width: 100%;
+}
+
+.modal__label>p {
+   padding-bottom: 0.5rem;
+}
+
+.modal__error{
+    color: red;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modal__close{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modal__label > input{
+    width: 100%;
+    color: #000;
+    border: 0.3rem solid #000;
+    padding: 1rem 2rem;
+    font-size: 2.4rem;
+    outline: none;
 }
 
 .modal__text{
