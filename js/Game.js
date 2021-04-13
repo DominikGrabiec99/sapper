@@ -22,6 +22,11 @@ class Game extends UI{
             rows: 16,
             cols: 30,
             mines: 99
+        }, 
+        custom: {
+            rows: null,
+            cols: null,
+            mines: null
         }
     }
 
@@ -40,12 +45,22 @@ class Game extends UI{
     #revealCells = 0;
     #board = null;
 
+
     #buttons = {
         modal: null,
         easy: null,
         normal: null,
         expert: null,
+        custom: null,
+        buttonCustom: null,
         reset: new ResetButton()
+    }
+
+    #customInputs = {
+        rows: null,
+        cols: null,
+        mines: null,
+        customClose: null
     }
 
 
@@ -86,14 +101,14 @@ class Game extends UI{
             this.#modal.infoText ='You lost, try again!';
             this.#buttons.reset.changeEmotion('negative');
             this.#modal.setText();
-            this.#modal.toggleModal();
+            this.#modal.toggleModal(this.#modal.element);
             return;
         }
 
         this.#modal.infoText = this.#timer.numberOfSeconds < this.#timer.maxNumberOfSeconds ? `You win, it take you ${this.#timer.numberOfSeconds} secondts`: 'You won, congratulations';
         this.#buttons.reset.changeEmotion('positive');
         this.#modal.setText();
-        this.#modal.toggleModal();
+        this.#modal.toggleModal(this.#modal.element);
 
     }
 
@@ -112,7 +127,9 @@ class Game extends UI{
     }
 
     #addButtonsEventListeners(){
-        this.#buttons.modal.addEventListener('click', this.#modal.toggleModal)
+
+        this.#buttons.modal.addEventListener('click', () => this.#modal.toggleModal(this.#modal.element));
+
         this.#buttons.easy.addEventListener('click', () =>{
             this.#handleNewGameClick(
                 this.#config.easy.rows,
@@ -137,7 +154,36 @@ class Game extends UI{
             );
         }) 
 
-        this.#buttons.reset.element.addEventListener('click', () =>{
+        this.#buttons.custom.addEventListener('click', () =>{
+            this.#modal.toggleModal(this.#modal.modalCustom)
+        }) 
+
+        this.#buttons.buttonCustom.addEventListener('click', (e) =>{
+            e.preventDefault();
+            this.#getCustomOptions()
+
+            if(!this.#checkCustomConfig()){
+                this.#modal.toggleModal(this.#modal.modalError)
+                setTimeout(()=>{
+                    this.#modal.toggleModal(this.#modal.modalError)
+                }, 2500)
+                return;
+            }
+
+            this.#handleNewGameClick(
+                this.#config.custom.rows,
+                this.#config.custom.cols,
+                this.#config.custom.mines
+            );
+
+            this.#modal.toggleModal(this.#modal.modalCustom)
+        })
+
+        this.#customInputs.customClose.addEventListener('click', () => {
+            this.#modal.toggleModal(this.#modal.modalCustom);
+        })
+
+        this.#buttons.reset.element.addEventListener('click', () => {
             this.#handleNewGameClick();
         }) 
     }
@@ -187,6 +233,29 @@ class Game extends UI{
                 minesToPlace--;
             }
         }
+    }
+
+    #getCustomOptions(){
+        this.#customInputs.rows = this.getElement(this.UiSelectors.customRows);
+        this.#customInputs.cols = this.getElement(this.UiSelectors.customCols);
+        this.#customInputs.mines = this.getElement(this.UiSelectors.customMines);
+
+        this.#config.custom.rows = this.#customInputs.rows.value;
+        this.#config.custom.cols = this.#customInputs.cols.value;
+        this.#config.custom.mines = this.#customInputs.mines.value;
+    }
+
+    #checkCustomConfig(){
+        if(
+            this.#config.custom.rows < 8 || 
+            this.#config.custom.cols < 8 ||  
+            this.#config.custom.mines >= this.#config.custom.cols *  this.#config.custom.rows || 
+            this.#config.custom.mines < 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     #handleCellClick = (e) => {
@@ -284,6 +353,10 @@ class Game extends UI{
         this.#buttons.easy = this.getElement(this.UiSelectors.easyButton);
         this.#buttons.normal = this.getElement(this.UiSelectors.normalButton);
         this.#buttons.expert = this.getElement(this.UiSelectors.expertButton);
+
+        this.#buttons.custom = this.getElement(this.UiSelectors.customButton);
+        this.#buttons.buttonCustom = this.getElement(this.UiSelectors.modalCustomButton);
+        this.#customInputs.customClose = this.getElement(this.UiSelectors.customClose);
     }
 
     initializeGame(){

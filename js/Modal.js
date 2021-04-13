@@ -7,8 +7,12 @@ export class Modal extends UI{
     button = this.getElement(this.UiSelectors.modalButton);
     header = this.getElement(this.UiSelectors.modalHeader);
 
-    toggleModal = () =>{
-        this.element.classList.toggle('hide')
+    modalCustom = this.getElement(this.UiSelectors.modalCustom);
+    modalCustomButton = this.getElement(this.UiSelectors.modalCustomButton);
+    modalError = this.getElement(this.UiSelectors.customError);
+
+    toggleModal = (modal) =>{
+        modal.classList.toggle('hide');
     }
 
     setText(){

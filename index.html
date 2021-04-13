@@ -31,12 +31,36 @@
                 <button class="button" data-button-easy>Easy</button>
                 <button class="button" data-button-normal>Normal</button>
                 <button class="button" data-button-expert>Expert</button>
+                <button class="button" data-button-custom>Custom</button>
             </section>
         </article>
         <article class="modal hide" data-modal>
             <section class="modal__content">
                 <h2 class="modal__text" data-modal-header>You Won!</h2>
                 <button class="modal__button" data-modal-button>Play again!</button>
+            </section>
+        </article>
+
+        <article class="modal--custom hide" data-modal-custom>
+            <section class="modal__content">
+                <p>Custom your game!</p>
+                <form class="modal__form" action="#">
+                    <label class="modal__label" for="rows"> 
+                        <p>Number of rows:</p>
+                        <input type="number" name="rows" id="modal__rows" placeholder="min 8" data-rows-custom>
+                    </label>
+                    <label class="modal__label" for="cols">
+                        <p>Number of columns:</p>
+                        <input type="number" name="cols" id="modal__cols" placeholder="min 8" data-cols-custom>
+                    </label>
+                    <label class="modal__label" for="mines">
+                        <p>Number of mines:</p>
+                        <input type="number" name="mines" id="modal__mines" data-mines-custom>
+                    </label>
+                    <p class="hide modal__error" data-error-custom>Wprowadź poprawne dane</p>
+                    <button class="modal__button" data-modal-custom-button>Start</button>
+                </form>
+                <span class="modal__close" data-modal-custom-close>X</span>
             </section>
         </article>
     </main>
