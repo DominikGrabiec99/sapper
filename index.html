@@ -12,13 +12,13 @@
 <body>
     <main class="game">
         <header class="header border border--convex">
-            <article class="header__counter">0</article>
-            <button class="header__reset border border--concave">
+            <article class="header__counter" data-counter>0</article>
+            <button class="header__reset border border--concave" data-button-reset>
                 <svg class="header__button">
                     <use href="./assets/sprite.svg#neutral"></use>
                 </svg>
             </button>
-            <article class="header__counter">0</article>
+            <article class="header__counter" data-timer>0</article>
         </header>
         <article class="game__board border border--convex" data-board>
             
@@ -28,15 +28,15 @@
                 <h1 class="panel__heading">Select Difficulty</h1>
             </header>
             <section class="panel__buttons">
-                <button class="button">Easy</button>
-                <button class="button">Normal</button>
-                <button class="button">Expert</button>
+                <button class="button" data-button-easy>Easy</button>
+                <button class="button" data-button-normal>Normal</button>
+                <button class="button" data-button-expert>Expert</button>
             </section>
         </article>
-        <article class="modal hide">
+        <article class="modal hide" data-modal>
             <section class="modal__content">
-                <h2 class="modal__text">You Won!</h2>
-                <button class="modal__button">Play again!</button>
+                <h2 class="modal__text" data-modal-header>You Won!</h2>
+                <button class="modal__button" data-modal-button>Play again!</button>
             </section>
         </article>
     </main>

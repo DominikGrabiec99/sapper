@@ -21,7 +21,17 @@ export class Cell extends UI{
     revealCell(){
         this.isReveal = true;
         this.element.classList.remove('border--concave');
-        this.element.classList.add('border--revealt')
+        this.element.classList.add('border--revealt');
+
+        if(this.isMine){
+            this.element.classList.add('cell--is-mine')
+            return;
+        }
+
+        if(this.value) {
+            this.element.textContent = this.value;
+            this.element.classList.add(`cell-info-${this.value}`)
+        }
     }
 
     toggleFlag(){
@@ -29,4 +39,7 @@ export class Cell extends UI{
         this.element.classList.toggle('cell--is-flag')
     }
 
+    addMine(){
+        this.isMine = true;
+    }   
 }
